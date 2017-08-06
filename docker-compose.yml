@@ -1,0 +1,29 @@
+version: '2'
+services:
+  davmail:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker-davmail
+    container_name: docker-davmail
+    ports:
+      - "587:587"
+      - "1110:1110"
+#      - "8001:80"
+    hostname: dm.hypervasis.com
+    restart: always
+    volumes:
+      - /data/davmail:/etc/davmail
+#    environment:
+#      - VIRTUAL_HOST=dm.hypervasis.com
+#      - LETSENCRYPT_HOST=dm.hypervasis.com
+#      - LETSENCRYPT_EMAIL=stratosgear@gmail.com
+    networks:
+      - nginxproxy-network
+
+
+networks:
+    nginxproxy-network:
+        external:
+            name: nginxproxy-network
+
